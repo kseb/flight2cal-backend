@@ -17,16 +17,27 @@ import (
 var airlabsToken = os.Getenv("AIRLABS_TOKEN")
 
 func main() {
-	router := gin.Default()
-	router.GET("/ics/:arrivalIcao/:departureIcao/:date", getIcs)
-	router.GET("/airports/search/:search", searchAirport)
-	router.GET("/airports/all", getAllAirports)
+	router := startServer()
 
 	const BindAddress = "localhost:8080"
 	err := router.Run(BindAddress)
 	if err != nil {
 		log.Fatal("Cannot run on " + BindAddress)
 	}
+}
+
+func startServer() *gin.Engine {
+	router := gin.Default()
+	router.GET("/health", func(c *gin.Context) {
+		c.IndentedJSON(http.StatusOK, gin.H{
+			"message": "ok",
+		})
+	})
+	router.GET("/ics/:arrivalIcao/:departureIcao/:date", getIcs)
+	router.GET("/airports/search/:search", searchAirport)
+	router.GET("/airports/all", getAllAirports)
+
+	return router
 }
 
 func searchAirport(context *gin.Context) {

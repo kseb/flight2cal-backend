@@ -5,6 +5,7 @@ import (
 	"github.com/gocarina/gocsv"
 	"log"
 	"net/http"
+	"os"
 	"regexp"
 )
 
@@ -40,8 +41,9 @@ func Airports() map[string]Airport {
 	for _, capital := range countries.AllCapitals() {
 		countriesMap[capital.Country().Alpha2()] = capital.String()
 	}
-	resp, _ := http.Get("https://davidmegginson.github.io/ourairports-data/airports.csv")
+	resp, _ := http.Get(getAirportsUrl())
 	var airportCsv []AirportCsv
+
 	err := gocsv.Unmarshal(resp.Body, &airportCsv)
 	if err != nil {
 		log.Fatal("Error getting airportCsv: " + err.Error())
@@ -63,6 +65,15 @@ func Airports() map[string]Airport {
 
 	airports = airportsMap
 	return airportsMap
+}
+
+func getAirportsUrl() string {
+	airportsCsvUrl := os.Getenv("AIRPORT_CSV_URL")
+	if airportsCsvUrl != "" {
+		return airportsCsvUrl
+	} else {
+		return "https://davidmegginson.github.io/ourairports-data/airports.csv"
+	}
 }
 
 func GetAllAirports() []Airport {
