@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"regexp"
+	"sort"
 )
 
 type AirportCsv struct {
@@ -78,9 +79,17 @@ func getAirportsUrl() string {
 
 func GetAllAirports() []Airport {
 	var result []Airport
-	for _, airport := range Airports() {
-		result = append(result, airport)
+
+	keys := make([]string, 0, len(Airports()))
+	for k := range Airports() {
+		keys = append(keys, k)
 	}
+	sort.Strings(keys)
+
+	for _, key := range keys {
+		result = append(result, Airports()[key])
+	}
+
 	return result
 }
 

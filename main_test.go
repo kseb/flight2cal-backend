@@ -37,7 +37,7 @@ func Test_getAllAirports(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("content-type", "text/csv")
 		if r.RequestURI == "/airports.csv" {
-			w.Write(reader)
+			_, _ = w.Write(reader)
 		}
 	}))
 
