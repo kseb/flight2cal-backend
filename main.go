@@ -74,8 +74,6 @@ func getIcs(c *gin.Context) {
 		"arr_icao=" + arrivalIcao + "&" +
 		"dep_icao=" + departureIcao
 
-	println("URL: " + url)
-
 	response, err := http.Get(url)
 
 	responseData, err := io.ReadAll(response.Body)
