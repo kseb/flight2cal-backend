@@ -2,8 +2,7 @@ name: go test
 
 on:
   workflow_run:
-    workflows:
-      - Analyze
+    workflows: [ "CodeQL" ]
     types:
       - completed
 
