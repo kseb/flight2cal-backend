@@ -6,7 +6,7 @@ require (
 	github.com/biter777/countries v1.6.4
 	github.com/gin-gonic/gin v1.9.1
 	github.com/gocarina/gocsv v0.0.0-20230513223533-9ddd7fd60602
-	github.com/stretchr/testify v1.8.3
+	github.com/stretchr/testify v1.8.4
 	golang.org/x/exp v0.0.0-20230515195305-f3d0a9c9a5cc
 )
 
