@@ -1,0 +1,4 @@
+"id","ident","type","name","latitude_deg","longitude_deg","elevation_ft","continent","iso_country","iso_region","municipality","scheduled_service","gps_code","iata_code","local_code"
+1,"00A","heliport","Some Heliport",40.07080078125,-74.93360137939453,11,"NA","US","US-PA","Bensalem","no","00A",,"00A"
+2,"00AA","large_airport","Some large airport",38.704022,-101.473911,3435,"NA","US","US-KS","Leoti","no","00AA",,"00AA"
+3,"00AK","large_airport","Other large airport",59.947733,-151.692524,450,"NA","US","US-AK","Anchor Point","no","00AK",,"00AK"
