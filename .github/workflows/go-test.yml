@@ -1,6 +1,12 @@
 name: go test
 
-on: [push]
+on:
+  workflow_run:
+    workflows:
+      - CodeQL
+    types:
+      - completed
+
 
 jobs:
 
