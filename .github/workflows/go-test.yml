@@ -2,14 +2,13 @@ name: go test
 
 on:
   workflow_run:
-    workflows: [ "CodeQL" ]
+    workflows: [CodeQL]
     types:
       - completed
 
 
 jobs:
-
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
