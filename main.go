@@ -14,10 +14,15 @@ import (
 	"time"
 )
 
-var airlabsToken = os.Getenv("AIRLABS_TOKEN")
+var AirlabsToken = os.Getenv("AIRLABS_TOKEN")
+var AllowOriginHost = os.Getenv("ALLOW_ORIGIN_HOST")
 
 func main() {
 	router := startServer()
+
+	if AirlabsToken == "" {
+		log.Fatal("AIRLABS_TOKEN not set")
+	}
 
 	const BindAddress = "localhost:8080"
 	err := router.Run(BindAddress)
@@ -41,25 +46,31 @@ func startServer() *gin.Engine {
 }
 
 func searchAirport(context *gin.Context) {
-	context.Header("Access-Control-Allow-Origin", "http://localhost:4200")
+	addAccessControlAllowOriginIfSet(context)
 	context.IndentedJSON(http.StatusOK, csv.FindAirport(context.Param("search")))
 }
 
+func addAccessControlAllowOriginIfSet(context *gin.Context) {
+	if AllowOriginHost != "" {
+		context.Header("Access-Control-Allow-Origin", AllowOriginHost)
+	}
+}
+
 func getAllAirports(context *gin.Context) {
-	context.Header("Access-Control-Allow-Origin", "http://localhost:4200")
+	addAccessControlAllowOriginIfSet(context)
 	context.Header("Cache-Control", "max-age=3600")
 	context.IndentedJSON(http.StatusOK, csv.GetAllAirports())
 }
 
 func getIcs(c *gin.Context) {
-	c.Header("Access-Control-Allow-Origin", "http://localhost:4200")
+	addAccessControlAllowOriginIfSet(c)
 
 	arrivalIcao := c.Param("arrivalIcao")
 	departureIcao := c.Param("departureIcao")
 	dateParam := c.Param("date")
 
 	url := "https://airlabs.co/api/v9/" +
-		"routes?api_key=" + airlabsToken + "&" +
+		"routes?api_key=" + AirlabsToken + "&" +
 		"arr_icao=" + arrivalIcao + "&" +
 		"dep_icao=" + departureIcao
 
@@ -72,7 +83,10 @@ func getIcs(c *gin.Context) {
 		log.Fatal(err)
 	}
 
-	response.Body.Close()
+	err = response.Body.Close()
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	var responseObject Airlabs
 	unmarshalErr := json.Unmarshal(responseData, &responseObject)
