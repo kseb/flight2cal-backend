@@ -35,6 +35,9 @@ jobs:
   docker:
     uses: ./.github/workflows/docker.yml
     secrets: inherit
+    needs:
+      - go-test
+      - call-codeql
     permissions:
       contents: read
       packages: write
