@@ -1,4 +1,4 @@
-name: CodeQL and test
+name: CodeQL
 
 on:
   workflow_call:
@@ -60,18 +60,3 @@ jobs:
       uses: github/codeql-action/analyze@v2
       with:
         category: "/language:${{matrix.language}}"
-
-  go_test:
-    name: go test
-    runs-on: ubuntu-latest
-    needs:
-      - analyze
-    steps:
-      - uses: actions/checkout@v3
-      - name: setup go
-        uses: actions/setup-go@v4
-        with:
-          go-version: '1.20'
-      - name: go test
-        run: go test
-

@@ -1,0 +1,19 @@
+name: go test
+
+on:
+  workflow_call:
+jobs:
+  go_test:
+    name: go test
+    runs-on: ubuntu-latest
+    needs:
+      - analyze
+    steps:
+      - uses: actions/checkout@v3
+      - name: setup go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.20'
+      - name: go test
+        run: go test
+
