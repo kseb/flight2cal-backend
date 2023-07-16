@@ -1,14 +1,10 @@
 name: go test
 
 on:
-  workflow_run:
-    workflows: [CodeQL]
-    types:
-      - completed
-
-
+  workflow_call:
 jobs:
-  test:
+  go_test:
+    name: go test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

@@ -1,0 +1,44 @@
+name: Workflow
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+on:
+  push:
+    branches: [ "main" ]
+    # Publish semver tags as releases.
+    tags: [ 'v*.*.*' ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  # Use docker.io for Docker Hub if empty
+  REGISTRY: ghcr.io
+  # github.repository as <account>/<repo>
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  call-codeql:
+    uses: ./.github/workflows/codeql.yml
+    secrets: inherit
+    permissions:
+      actions: read
+      security-events: write
+      contents: write
+  go-test:
+    uses: ./.github/workflows/test.yml
+    secrets: inherit
+    needs:
+      - call-codeql
+  docker:
+    uses: ./.github/workflows/docker.yml
+    secrets: inherit
+    needs:
+      - go-test
+      - call-codeql
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
