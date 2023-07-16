@@ -21,14 +21,16 @@ env:
 
 
 jobs:
-  call-codeql:
-    uses: ./.github/workflows/workflow.yml
+  call-codeql-and-test:
+    uses: ./.github/workflows/codeql-and-test.yml
     secrets: inherit
     permissions:
       actions: read
       security-events: write
       contents: write
-  build:
+  docker:
+    needs:
+      - call-codeql-and-test
     runs-on: ubuntu-latest
     permissions:
       contents: read
