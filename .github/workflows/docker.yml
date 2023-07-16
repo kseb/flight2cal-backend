@@ -27,6 +27,7 @@ jobs:
     permissions:
       actions: read
       security-events: write
+      contents: write
   build:
     runs-on: ubuntu-latest
     permissions:
