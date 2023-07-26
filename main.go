@@ -24,7 +24,7 @@ func main() {
 		log.Fatal("AIRLABS_TOKEN not set")
 	}
 
-	const BindAddress = "localhost:8080"
+	const BindAddress = "0.0.0.0:8080"
 	err := router.Run(BindAddress)
 	if err != nil {
 		log.Fatal("Cannot run on " + BindAddress)
