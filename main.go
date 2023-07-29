@@ -38,7 +38,7 @@ func startServer() *gin.Engine {
 			"message": "ok",
 		})
 	})
-	router.GET("/ics/:arrivalIcao/:departureIcao/:date", getIcs)
+	router.GET("/flights/:arrivalIcao/:departureIcao/:date", getFlights)
 	router.GET("/airports/search/:search", searchAirport)
 	router.GET("/airports/all", getAllAirports)
 
@@ -62,7 +62,7 @@ func getAllAirports(context *gin.Context) {
 	context.IndentedJSON(http.StatusOK, csv.GetAllAirports())
 }
 
-func getIcs(c *gin.Context) {
+func getFlights(c *gin.Context) {
 	addAccessControlAllowOriginIfSet(c)
 
 	arrivalIcao := c.Param("arrivalIcao")
