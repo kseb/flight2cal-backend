@@ -1,7 +1,7 @@
 # Flight2calBackend
 
 Go REST backend using [gin gonic](https://github.com/gin-gonic/gin) to provide flight
-data for [Flight2calFackend](https://github.com/kseb/flight2cal-frontend).
+data for [flight2cal-frontend](https://github.com/kseb/flight2cal-frontend).
 
 The backend uses data from [AirLabs](https://airlabs.co/). To use this backend, yuo need
 an API key.
