@@ -20,4 +20,6 @@ type Flight struct {
 	Arrival              time.Time `json:"arrival"`
 	DepartureAirportName string    `json:"departure_airport_name"`
 	ArrivalAirportName   string    `json:"arrival_airport_name"`
+	AirlineIata          string    `json:"airline_iata"`
+	AirlineName          string    `json:"airline_name"`
 }
