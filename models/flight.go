@@ -7,7 +7,7 @@ import (
 
 func (flight *Flight) HashCode() uint32 {
 	hash := fnv.New32()
-	stringToHash := flight.Departure.String() + flight.Arrival.String()
+	stringToHash := flight.Departure.String() + flight.Arrival.String() + flight.AirlineIata
 	_, _ = hash.Write([]byte(stringToHash))
 	return hash.Sum32()
 }
