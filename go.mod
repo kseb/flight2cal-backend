@@ -3,7 +3,7 @@ module flight2cal-backend
 go 1.20
 
 require (
-	github.com/biter777/countries v1.7.2
+	github.com/biter777/countries v1.7.5
 	github.com/gin-gonic/gin v1.10.0
 	github.com/gocarina/gocsv v0.0.0-20230513223533-9ddd7fd60602
 	github.com/stretchr/testify v1.9.0
