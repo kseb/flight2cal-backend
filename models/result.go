@@ -19,15 +19,11 @@ func before(a Flight, b Flight) int {
 	return 1
 }
 
-func less(a Flight, b Flight) bool {
-	return before(a, b) == -1
-}
-
 func (resultFlights *ResultFlights) FromFlights(flights Flights) {
 	resultFlights.Size = len(flights.Flight)
 	for _, flight := range flights.Flight {
 		resultFlights.Flights = append(resultFlights.Flights, flight)
 	}
 
-	slices.SortFunc(resultFlights.Flights, less)
+	slices.SortFunc(resultFlights.Flights, before)
 }
