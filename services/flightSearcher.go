@@ -2,6 +2,7 @@ package services
 
 import (
 	"encoding/json"
+	"flight2cal-backend/csv"
 	"flight2cal-backend/models"
 	"flight2cal-backend/utils"
 	"github.com/gin-gonic/gin"
@@ -63,13 +64,15 @@ func GetFlights(c *gin.Context) {
 				continue
 			}
 			flight := models.Flight{
-				ArrIcao:     airlabsFlight.ArrIcao,
-				DepIcao:     airlabsFlight.DepIcao,
-				FlightIcao:  airlabsFlight.FlightIcao,
-				Departure:   departure,
-				Arrival:     arrival,
-				AirlineIata: airlabsFlight.AirlineIata,
-				AirlineName: airlineName,
+				ArrIcao:       airlabsFlight.ArrIcao,
+				DepIcao:       airlabsFlight.DepIcao,
+				FlightIcao:    airlabsFlight.FlightIcao,
+				Departure:     departure,
+				Arrival:       arrival,
+				AirlineIata:   airlabsFlight.AirlineIata,
+				AirlineName:   airlineName,
+				ArrivalCity:   csv.Airports()[airlabsFlight.DepIcao].City,
+				DepartureCity: csv.Airports()[airlabsFlight.ArrIcao].City,
 			}
 			flights.InsertFlight(flight)
 		}
