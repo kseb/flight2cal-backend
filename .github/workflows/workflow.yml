@@ -44,6 +44,7 @@ jobs:
       id-token: write
   deployment:
     uses: ./.github/workflows/deployment.yaml
+    secrets: inherit
     needs:
       - docker
     if: github.ref == 'refs/heads/main'
