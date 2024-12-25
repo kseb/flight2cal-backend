@@ -1,0 +1,21 @@
+name: Deployment
+
+on:
+  workflow_call:
+  
+jobs:
+  deployment:
+    container:
+      image: bitnami/kubectl
+    runs-on: ubuntu-latest
+    environment: kubexti
+    steps:
+      - name: get-config
+        run: mkdir ~/.kube/; echo "${KUBEXTI_CLUSTER_CONFIG}" >> ~/.kube/config; wc -l ~/.kube/config
+        env:
+          KUBEXTI_CLUSTER_CONFIG: |
+            ${{ secrets.KUBEXTI_CLUSTER_CONFIG }}
+      - name: change-context
+        run: kubectl config use-context kubexti
+      - name: restart
+        run: kubectl -n flight2cal rollout restart deployment flight2cal-backend

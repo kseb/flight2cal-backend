@@ -42,3 +42,8 @@ jobs:
       contents: read
       packages: write
       id-token: write
+  deployment:
+    uses: ./.github/workflows/deployment.yaml
+    needs:
+      - docker
+    if: github.ref == 'refs/heads/main'
