@@ -14,7 +14,7 @@ type AirportCsv struct {
 	Icao        string `csv:"ident"`
 	Name        string `csv:"name"`
 	City        string `csv:"municipality"`
-	CountryIso  string `csv:"country"`
+	CountryIso  string `csv:"iso_country"`
 	AirportType string `csv:"type"`
 	Latitude    string `csv:"latitude_deg"`
 	Longitude   string `csv:"longitude_deg"`
@@ -39,8 +39,8 @@ func Airports() map[string]Airport {
 
 	// iso code to name
 	countriesMap := map[string]string{}
-	for _, capital := range countries.AllCapitals() {
-		countriesMap[capital.Country().Alpha2()] = capital.String()
+	for _, country := range countries.All() {
+		countriesMap[country.Alpha2()] = country.String()
 	}
 	resp, _ := http.Get(getAirportsUrl())
 	var airportCsv []AirportCsv

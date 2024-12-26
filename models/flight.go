@@ -24,4 +24,6 @@ type Flight struct {
 	AirlineName          string    `json:"airline_name"`
 	ArrivalCity          string    `json:"arrival_city"`
 	DepartureCity        string    `json:"departure_city"`
+	DepartureCountry     string    `json:"departure_country"`
+	ArrivalCountry       string    `json:"arrival_country"`
 }

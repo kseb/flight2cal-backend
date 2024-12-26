@@ -5,11 +5,16 @@ import (
 	"flight2cal-backend/services"
 	"flight2cal-backend/utils"
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 	"log"
 	"net/http"
 )
 
 func main() {
+	if err := godotenv.Load(); err != nil {
+		log.Fatalf("Failed to load the env vars: %v", err)
+	}
+
 	router := startServer()
 
 	if utils.AirlabsToken() == "" {
