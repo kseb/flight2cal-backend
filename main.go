@@ -1,6 +1,9 @@
 package main
 
 import (
+	"bytes"
+	"compress/gzip"
+	"encoding/json"
 	"flight2cal-backend/csv"
 	"flight2cal-backend/services"
 	"flight2cal-backend/utils"
@@ -50,5 +53,14 @@ func searchAirport(context *gin.Context) {
 func getAllAirports(context *gin.Context) {
 	utils.AddAccessControlAllowOriginIfSet(context)
 	context.Header("Cache-Control", "max-age=3600")
-	context.IndentedJSON(http.StatusOK, csv.GetAllAirports())
+	context.Header("Content-Encoding", "gzip")
+
+	allAirports, _ := json.Marshal(csv.GetAllAirports())
+
+	var buf bytes.Buffer
+	gz := gzip.NewWriter(&buf)
+	_, _ = gz.Write(allAirports)
+	_ = gz.Close()
+
+	context.Data(http.StatusOK, "application/json", buf.Bytes())
 }
