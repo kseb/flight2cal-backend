@@ -3,7 +3,7 @@
 		"Icao": "00AA",
 		"Name": "Some large airport",
 		"City": "Leoti",
-		"Country": "",
+		"Country": "United States",
 		"Longitude": "-101.473911",
 		"Latitude": "38.704022"
 	},
@@ -11,7 +11,7 @@
 		"Icao": "00AK",
 		"Name": "Other large airport",
 		"City": "Anchor Point",
-		"Country": "",
+		"Country": "United States",
 		"Longitude": "-151.692524",
 		"Latitude": "59.947733"
 	}
