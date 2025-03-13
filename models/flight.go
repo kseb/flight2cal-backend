@@ -7,7 +7,7 @@ import (
 
 func (flight *Flight) HashCode() uint32 {
 	hash := fnv.New32()
-	stringToHash := flight.Departure.String() + flight.Arrival.String() + flight.AirlineIata
+	stringToHash := flight.Departure.String() + flight.Arrival.String() + flight.ArrIcao + flight.DepIcao + flight.AirlineName
 	_, _ = hash.Write([]byte(stringToHash))
 	return hash.Sum32()
 }
@@ -20,7 +20,6 @@ type Flight struct {
 	Arrival              time.Time `json:"arrival"`
 	DepartureAirportName string    `json:"departure_airport_name"`
 	ArrivalAirportName   string    `json:"arrival_airport_name"`
-	AirlineIata          string    `json:"airline_iata"`
 	AirlineName          string    `json:"airline_name"`
 	ArrivalCity          string    `json:"arrival_city"`
 	DepartureCity        string    `json:"departure_city"`

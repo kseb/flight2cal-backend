@@ -58,9 +58,9 @@ func GetFlights(c *gin.Context) {
 			continue
 		}
 		if slices.Contains(airlabsFlight.Days, strings.ToLower(departure.Weekday().String()[0:3])) {
-			airlineName, err := GetAirline(airlabsFlight.AirlineIata)
+			airlineName, err := GetAirline(airlabsFlight.AirlineIcao)
 			if err != nil {
-				log.Println("No iata code found for airline, ignoring flight.", err)
+				log.Println("No icao code found for airline, ignoring flight.", err)
 				continue
 			}
 			flight := models.Flight{
@@ -69,7 +69,6 @@ func GetFlights(c *gin.Context) {
 				FlightIcao:       airlabsFlight.FlightIcao,
 				Departure:        departure,
 				Arrival:          arrival,
-				AirlineIata:      airlabsFlight.AirlineIata,
 				AirlineName:      airlineName,
 				ArrivalCity:      csv.Airports()[airlabsFlight.DepIcao].City,
 				DepartureCity:    csv.Airports()[airlabsFlight.ArrIcao].City,

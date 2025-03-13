@@ -13,23 +13,23 @@ import (
 
 var airlineMap = make(map[string]string)
 
-func GetAirline(airlineIata string) (string, error) {
-	match, _ := regexp.MatchString("[A-Z]{2,4}", airlineIata)
+func GetAirline(airlineIcao string) (string, error) {
+	match, _ := regexp.MatchString("[A-Z]{2,4}", airlineIcao)
 
 	if !match {
-		message := "airlineIata does not match regular expression \"[A-Z]{2,4}\""
+		message := "airlineIcao does not match regular expression \"[A-Z]{2,4}\""
 		log.Println(message)
 		return "", errors.New(message)
 	}
 
-	value, found := airlineMap[airlineIata]
+	value, found := airlineMap[airlineIcao]
 	if found {
 		return value, nil
 	}
 
 	url := "https://airlabs.co/api/v9/" +
 		"airlines?api_key=" + utils.AirlabsToken() + "&" +
-		"iata_code=" + airlineIata
+		"icao_code=" + airlineIcao
 
 	response, err := http.Get(url)
 	if err != nil {
@@ -53,7 +53,7 @@ func GetAirline(airlineIata string) (string, error) {
 	}
 
 	for _, airline := range responseObject.Airlines {
-		airlineMap[airlineIata] = airline.Name
+		airlineMap[airlineIcao] = airline.Name
 		return airline.Name, nil
 	}
 

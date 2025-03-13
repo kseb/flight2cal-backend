@@ -8,6 +8,6 @@ type Airlabs struct {
 		DepTimeUtc  string   `json:"dep_time_utc"`
 		ArrTimeUtc  string   `json:"arr_time_utc"`
 		Days        []string `json:"days"`
-		AirlineIata string   `json:"airline_iata"`
+		AirlineIcao string   `json:"airline_icao"`
 	} `json:"response"`
 }
